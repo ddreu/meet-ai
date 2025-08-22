@@ -173,7 +173,7 @@ const SignUpView = () => {
                   </Alert>
                 )}
                 <Button disabled={pending} type="submit" className="w-full">
-                  Sign In
+                  Sign Up
                 </Button>
                 <div
                   className="after:border-border relative text-center text-small after:absolute
