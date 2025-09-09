@@ -2,31 +2,33 @@
 
 import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { useTRPC } from "@/trpc/client";
+import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
 export const HomeView = () => {
-  const router = useRouter();
-  const { data: session } = authClient.useSession();
+  // const router = useRouter();
+  // const { data: session } = authClient.useSession();
 
   // if (!session) {
-  //   return <p>Loading...</p>;
+  //   return (
+  //     <div className="flex items-center justify-center h-screen">
+  //       <p className="text-gray-500 text-sm">Loading...</p>
+  //     </div>
+  //   );
   // }
-
-  if (!session) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <p className="text-gray-500 text-sm">Loading...</p>
-      </div>
-    );
-  }
+  const trpc = useTRPC();
+  const { data } = useQuery(trpc.hello.queryOptions({ text: "Andrew" }));
 
   return (
     <div className="flex flex-col p-4 gap-y-4">
-      <p className="text-gray-900 text-lg font-medium">
+      {/* <p className="text-gray-900 text-lg font-medium">
         Hello,{" "}
         <span className="font-semibold text-gray-700">{session.user.name}</span>
       </p>
-      <p className="text-gray-500 text-sm">Welcome back to your dashboard.</p>
+      <p className="text-gray-500 text-sm">Welcome back to your dashboard.</p> */}
+
+      {data?.greeting}
     </div>
   );
 
